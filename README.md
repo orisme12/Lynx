@@ -1,6 +1,6 @@
 # Lynx
 
-Lynx is a commerce mixed
+Lynx is a mixed open sources store, where you will find a variety of products, Buy now! 🌼
 
 ## Tech Stack
 

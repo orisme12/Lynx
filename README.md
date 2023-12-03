@@ -1,14 +1,6 @@
 # Lynx
 
-Lynx is a mixed open sources store, where you will find a variety of products, Buy now! 🌼
-
-## Tech Stack
-
-- Supabase
-- Svelte
-- Deno
-
-
+Lynx is a mixed open sources commerce, where you will find a variety of products, Buy now! 🌼
 
 ## Teams
 

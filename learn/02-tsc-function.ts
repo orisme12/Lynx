@@ -88,3 +88,13 @@ function show(message: string): void {
   console.log(`hola soy un ${message}`)
 //  return message <--- este tipo void si llega a ejecutar esto pero lo ignora
 }
+
+// recuperar los tipos que devuelve la funcion
+function createAddress() {
+  return{
+    planet: "Tierra",
+    city: "Colombia"
+  }
+}
+
+type Address = ReturnType<typeof createAddress>

@@ -1,3 +1,4 @@
+// deno-lint-ignore-file
 function great_world(name: string) {
   return name;
 }
@@ -39,7 +40,7 @@ function saludar2(persona:{name:string, age: number } ){
 
 
 // Tipar funciones que se usan como parametros dentro de otra función
-
+// el tipo void se usa para funciones que no retornan ningun valor o ignora el valor retornado
 const sayHiFunction = (fn:(name : string) => void) =>{
   fn('felipe')
 }
@@ -73,3 +74,27 @@ str.toLowerCase();
 str.split(' ');
 str.slice(10)
 
+
+//Diferencia entr void y never
+/* never nunca devuelve un valor (no se termina de ejecutar la funcion)
+y void puede que retorne algo pero es ignorado (si termina de ejecutar la funcion)*/
+
+// usar never en una function
+function throwError(message: string): never {
+  if (message) throw new Error(message)
+//  return <--- este tipo never no llega a ejecutar esto
+}
+function show(message: string): void {
+  console.log(`hola soy un ${message}`)
+//  return message <--- este tipo void si llega a ejecutar esto pero lo ignora
+}
+
+// recuperar los tipos que devuelve la funcion
+function createAddress() {
+  return{
+    planet: "Tierra",
+    city: "Colombia"
+  }
+}
+
+type Address = ReturnType<typeof createAddress>

@@ -1,6 +1,9 @@
 {
+  "scopes": {
+  },
+  "lock": false,
   "tasks": {
-    "dev": "deno run --watch main.ts"
+    "server": "deno run -A --watch ./src/server/ main.ts"
   },
   "fmt": {
     "singleQuote": true

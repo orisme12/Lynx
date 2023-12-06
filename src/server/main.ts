@@ -7,3 +7,5 @@
  * Deno
  * Mit License @copyright 2023
  */
+
+Deno.serve(() => new Response('Hello World'));

@@ -8,4 +8,12 @@
  * Mit License @copyright 2023
  */
 
-Deno.serve(() => new Response('Hello World'));
+import { example } from 'deps/const.ts';
+
+console.log(example);
+
+const start = () => {
+  Deno.serve(() => new Response('Hello World'));
+};
+
+export default start;

@@ -1,1 +1,1 @@
-export const example = 'Deno deps';
+export const example = 'Deno deps'

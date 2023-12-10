@@ -1,0 +1,13 @@
+version: "3.8"
+
+services:
+   db:
+      image: postgres
+      environment:
+        POSTGRES_PASSWORD: postgres
+        POSTGRES_USER: postgres
+        POSTGRES_DB: lynx
+   app:
+      image: 'app'
+      ports: 
+        - 1993:1993

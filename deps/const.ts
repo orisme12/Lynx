@@ -1,1 +1,1 @@
-export const example = 'Deno deps'
+export const PORT = 3000

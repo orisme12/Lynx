@@ -1,17 +1,20 @@
 version: "3.8"
 
 services:
-   postgresql:
+   db:
       image: postgres
       environment:
         POSTGRES_PASSWORD: postgres
         POSTGRES_USER: postgres
         POSTGRES_DB: lynx
       ports:
-        - 5432:5432
-   app:
-      image: 'app'
-      depends_on: 
-        - postgresql
+        - '5432:5432'
+   pg:
+      image: 'dpage/pgadmin4'
+      environment:
+        PGADMIN_DEFAULT_EMAIL: pgadmin@mail.com
+        PGADMIN_DEFAULT_PASSWORD: admin
       ports: 
-        - 1993:1993
+        - '80:80'
+      depends_on: 
+        - db

@@ -9,8 +9,16 @@ products, Buy now! 🌼
 
 - Run images postgreSQL
 
+_If use you interface Docker Deskto:_
+
 ```sh
 docker compose up --no-start
+```
+
+_If use you terminal Docker CLI:_
+
+```sh
+docker compose up
 ```
 
 2. Run server

@@ -7,37 +7,16 @@
  * Mit License @copyright 2023
  */
 
-import fastify from './fastify.ts'
+import { Application } from 'packages/oak@v12.6.1/mod.ts'
 import { PORT } from 'deps/const.ts'
-import { auth_routes } from './route_auth.ts'
+import router from './router.ts'
+import './database.ts'
 
-import { Client } from 'packages/postgres@v0.17.0/mod.ts'
+const app = new Application()
 
-const postgres = new Client({
-  user: 'postgres',
-  database: 'lynx',
-  hostname: 'localhost',
-  port: 5432,
-})
+app.use(router.routes())
+app.use(router.allowedMethods())
 
-await postgres.connect()
+console.log(`🚀 Server on port: http://localhost:${PORT}/api`)
 
-console.log('Coneccion succesfuly to postgres 🚀')
-
-await postgres.end()
-
-fastify.get('/', (_request, reply) => {
-  reply.send({
-    message: 'Hola Api Lynx',
-    data: [
-      { name: 'title' },
-    ],
-  })
-})
-
-auth_routes.forEach((route_login) => {
-  fastify.route(route_login)
-})
-
-await fastify.listen({ port: PORT })
-fastify.log.info(`Server running... 🚀`)
+await app.listen({ port: PORT })

@@ -12,12 +12,20 @@ const postgres: ClientOptions = {
 }
 
 const client = new Client(postgres)
+const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
+let attempts = 0
 
-try {
-  console.log('🐳 Connecting to postgres...')
-  await client.connect()
-  console.log('🚀 Connection succesfuly to postgres')
-} catch (error) {
-  console.log('❌ Obtuviste un problema a conectarte a postgres')
-  console.log('📕 PROBLEMA: ', (error as Error).message)
+while (attempts < 5) {
+  try {
+    console.log('🐳 Connecting to postgres...')
+    await client.connect()
+    console.log('🚀 Connection succesfuly to postgres')
+    break
+  } catch (error) {
+    console.log('❌ Obtuviste un problema a conectarte a postgres')
+    console.log('📕 PROBLEMA: ', (error as Error).message)
+    console.log('🐳 Intentando nuevamente, conectando...')
+    await sleep(5000)
+    attempts++
+  }
 }

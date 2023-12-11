@@ -5,6 +5,28 @@ products, Buy now! 🌼
 
 ## Development
 
+1. First step
+
+- Run images postgreSQL
+
+```sh
+docker compose up --no-start
+```
+
+2. Run server
+
+```sh
+deno task dev
+```
+
+## Pg Admin
+
+Pg admmin server on port: 80
+
+```sh
+http://localhost:80
+```
+
 ## License
 
 This project is licensed under the **MIT** License. Therefore you can contribute

@@ -11,5 +11,7 @@ services:
         - 5432:5432
    app:
       image: 'app'
+      depends_on: 
+        - postgresql
       ports: 
         - 1993:1993

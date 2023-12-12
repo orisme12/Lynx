@@ -1,0 +1,11 @@
+{
+  "api": "Lynx Api",
+  "description": "This api for Lynx commerce",
+  "version": "0.1.0",
+  "authors": [
+    "Carlos",
+    "Santiago",
+    "Gerzon",
+    "Sebastian"
+  ]
+}

@@ -1,5 +1,4 @@
 import { Client, ClientOptions } from 'packages/postgres@v0.17.0/mod.ts'
-export { createClient } from 'https://esm.sh/@supabase/supabase-js@2.39.0'
 
 import { load } from 'deps/lib.ts'
 const env = await load()

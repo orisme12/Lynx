@@ -84,6 +84,9 @@ web_modules/
 .cache
 .parcel-cache
 
+# db
+pgdata
+
 # Next.js build output
 .next
 out

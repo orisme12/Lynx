@@ -7,7 +7,7 @@ products, Buy now! 🌼
 
 1. First step
 
-- Run images postgreSQL
+### Run images postgreSQL
 
 _If use you interface Docker Deskto:_
 
@@ -21,7 +21,7 @@ _If use you terminal Docker CLI:_
 docker compose up
 ```
 
-2. Run server
+### Run server
 
 ```sh
 deno task dev

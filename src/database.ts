@@ -1,8 +1,8 @@
 import { Client, ClientOptions } from 'packages/postgres@v0.17.0/mod.ts'
-
 import { load } from 'deps/lib.ts'
-const env = await load()
+import { AsyncResult } from 'types/mod.ts'
 
+const env = await load()
 const postgres: ClientOptions = {
   user: env['DB_USER'],
   database: env['DB_NAME'],
@@ -29,3 +29,27 @@ while (attempts < 5) {
     attempts++
   }
 }
+
+const queryToPostgreSQL = <T>(
+  query: string,
+  values?: T[],
+): Promise<AsyncResult<T>> => {
+  return new Promise((resolve, reject) => {
+    try {
+      client.queryArray(query, values)
+        .then((res) => {
+          const asyncResult: AsyncResult<T> = {
+            data: res.rows as T[],
+            count: res.rowCount,
+            description: res.rowDescription,
+          }
+          resolve(asyncResult)
+        })
+        .catch((err) => reject(err))
+    } catch (error) {
+      reject((error as Error).message)
+    }
+  })
+}
+
+export default queryToPostgreSQL

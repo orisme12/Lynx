@@ -1,10 +1,11 @@
 {
-  "imports": {
-    "deps/": "./deps/",
-    "packages/": "https://deno.land/x/"
-  },
   "tasks": {
     "dev": "deno run -A --watch ./src/main.ts"
+  },
+  "imports": {
+    "deps/": "./deps/",
+    "packages/": "https://deno.land/x/",
+    "types/": "./types/"
   },
   "lint": {
     "include": ["src/*", "deps/*"],

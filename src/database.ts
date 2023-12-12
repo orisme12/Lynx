@@ -1,5 +1,5 @@
 import { Client, ClientOptions } from 'packages/postgres@v0.17.0/mod.ts'
-import { load } from 'https://deno.land/std@0.208.0/dotenv/mod.ts'
+import { load } from "deps/lib.ts"
 
 const env = await load()
 

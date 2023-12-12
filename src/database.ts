@@ -1,5 +1,9 @@
 import { Client, ClientOptions } from 'packages/postgres@v0.17.0/mod.ts'
+<<<<<<< HEAD
 import { load } from 'deps/lib.ts'
+=======
+import { load } from "deps/lib.ts"
+>>>>>>> 368411653d2ef9656c218c10290baefcb832fd82
 
 const env = await load()
 

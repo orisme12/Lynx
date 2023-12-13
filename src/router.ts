@@ -1,24 +1,19 @@
 import { Router } from 'packages/oak@v12.6.1/mod.ts'
 import adminInfo from '../admin.json' assert { type: 'json' }
-import queryToPostgreSQL from './database.ts'
-import { User } from 'types/mod.ts'
+import auth from './api/auth.ts'
 
 const router = new Router()
 
 router.prefix('/api')
+router.use(auth.routes(), auth.allowedMethods())
 
-router.get('/', async (ctx) => {
-  const { data } = await queryToPostgreSQL<User[]>('SELECT * FROM users')
-
-  console.log(data)
-
+router.get('/', (ctx) => {
   ctx.response.body = {
     name: 'Lynx Api',
     version: adminInfo.version,
     api: adminInfo.api,
     description: adminInfo.description,
     authos: adminInfo.authors,
-    data,
   }
 })
 

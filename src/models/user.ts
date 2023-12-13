@@ -2,15 +2,14 @@ import { User } from 'types/mod.ts'
 import { comparePassword, hashPassword } from '../bcrypt.ts'
 import { queryToPostgreSQL } from '../utils.ts'
 
-export const create = (name: string, email: string, password: string) => {
+export const create = async (name: string, email: string, password: string) => {
   // logic for resgiter
   if (name && email && password) {
-    console.log({ name, email, password })
     try {
-      const existuser = findByEmail(email)
+      const existuser = await findByEmail(email)
       if (existuser === null) {
-        const passwordbcrypt = hashPassword(password)
-        queryToPostgreSQL(
+        const passwordbcrypt = await hashPassword(password)
+        await queryToPostgreSQL(
           'INSERT INTO users (name, email, password) VALUES ($1,$2,$3)',
           [name, email, passwordbcrypt],
         )

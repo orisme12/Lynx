@@ -9,7 +9,7 @@ auth.post('/register', async (ctx) => {
   const body = ctx.request.body()
   try {
     const user = await body.value as User
-    const isRegister = create(
+    const isRegister = await create(
       user.name,
       user.email,
       user.password,

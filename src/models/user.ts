@@ -2,7 +2,9 @@ import { User } from 'types/mod.ts'
 import { comparePassword } from '../bcrypt.ts'
 import { queryToPostgreSQL } from '../utils.ts'
 
-export const create = async (name: string, email: string, password: string) => {
+export const create = (name: string, email: string, password: string) => {
+  // logic for resgiter
+  console.log({ name, email, password })
 }
 
 export const findByEmail = async (email: string) => {

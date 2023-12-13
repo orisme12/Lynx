@@ -1,10 +1,32 @@
 import { User } from 'types/mod.ts'
-import { comparePassword } from '../bcrypt.ts'
+import { comparePassword, hashPassword } from '../bcrypt.ts'
 import { queryToPostgreSQL } from '../utils.ts'
 
 export const create = (name: string, email: string, password: string) => {
   // logic for resgiter
-  console.log({ name, email, password })
+  if (name && email && password) {
+    console.log({ name, email, password })
+    try {
+      const existuser = findByEmail(email)
+      if (existuser === null) {
+        const passwordbcrypt = hashPassword(password)
+        queryToPostgreSQL(
+          'INSERT INTO users (name, email, password) VALUES ($1,$2,$3)',
+          [name, email, passwordbcrypt],
+        )
+        return { success: true, message: 'Usuario registrado exitosamente.' }
+      } else {
+        return { success: false, message: 'El email ya esta en uso.' }
+      }
+    } catch {
+      return {
+        success: false,
+        message: 'Error al interactuar con la base de datos',
+      }
+    }
+  } else {
+    return { success: false, message: 'Al menos uno de los datos está vacíos' }
+  }
 }
 
 export const findByEmail = async (email: string) => {

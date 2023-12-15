@@ -3,24 +3,24 @@ import { comparePassword, hashPassword } from '../bcrypt.ts'
 import { queryToPostgreSQL } from '../utils.ts'
 
 export const create = async (name: string, email: string, password: string) => {
-  // logic for resgiter
   if (name && email && password) {
     try {
       const existuser = await findByEmail(email)
       if (existuser === null) {
         const passwordbcrypt = await hashPassword(password)
         await queryToPostgreSQL(
-          'INSERT INTO users (name, email, password) VALUES ($1,$2,$3)',
+          'INSERT INTO users (name, email, password) VALUES ($1, $2, $3)',
           [name, email, passwordbcrypt],
         )
         return { success: true, message: 'Usuario registrado exitosamente.' }
       } else {
         return { success: false, message: 'El email ya esta en uso.' }
       }
-    } catch {
+    } catch (error) {
       return {
         success: false,
         message: 'Error al interactuar con la base de datos',
+        queryPostgres: (error as Error).message,
       }
     }
   } else {

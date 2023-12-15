@@ -15,15 +15,9 @@ auth.post('/register', async (ctx) => {
       user.password,
     )
     if (isRegister.success) {
-      ctx.response.body = {
-        message: isRegister.message,
-        success: true,
-      }
+      ctx.response.body = isRegister
     } else {
-      ctx.response.body = {
-        message: isRegister.message,
-        success: false,
-      }
+      ctx.response.body = isRegister
     }
   } catch {
     ctx.response.body = {

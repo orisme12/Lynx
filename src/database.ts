@@ -11,10 +11,10 @@ const postgresSQLDev: ClientOptions = {
   port: env['DB_PORT'],
   password: env['DB_PASSWORD'],
 }
-const posgresSQLProd = env['DB_DEPLOY']
-const connectToPostgreSQL = MODE === 'dev' ? postgresSQLDev : posgresSQLProd
+// const posgresSQLProd = env['DB_DEPLOY']
+// const connectToPostgreSQL = MODE === 'dev' ? postgresSQLDev : posgresSQLProd
 
-const client = new Client(connectToPostgreSQL)
+const client = new Client(postgresSQLDev)
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 let attempts = 0
 

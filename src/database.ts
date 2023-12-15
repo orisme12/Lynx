@@ -3,7 +3,7 @@ import { load } from 'deps/lib.ts'
 
 const env = await load()
 
-const MODE = env['MODE']
+// const MODE = env['MODE']
 const postgresSQLDev: ClientOptions = {
   user: env['DB_USER'],
   database: env['DB_NAME'],

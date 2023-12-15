@@ -2,16 +2,19 @@ import { Client, ClientOptions } from 'packages/postgres@v0.17.0/mod.ts'
 import { load } from 'deps/lib.ts'
 
 const env = await load()
-const postgres: ClientOptions = {
+
+const MODE = env['MODE']
+const postgresSQLDev: ClientOptions = {
   user: env['DB_USER'],
   database: env['DB_NAME'],
   hostname: env['DB_HOSTNAME'],
   port: env['DB_PORT'],
   password: env['DB_PASSWORD'],
 }
-const configPosgrestRailway = env['CONFIG_RAILWAY']
+const posgresSQLProd = env['DB_DEPLOY']
+const connectToPostgreSQL = MODE === 'dev' ? postgresSQLDev : posgresSQLProd
 
-const client = new Client(configPosgrestRailway)
+const client = new Client(connectToPostgreSQL)
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 let attempts = 0
 

@@ -9,8 +9,9 @@ const postgres: ClientOptions = {
   port: env['DB_PORT'],
   password: env['DB_PASSWORD'],
 }
+const configPosgrestRailway = env['CONFIG_RAILWAY']
 
-const client = new Client(postgres)
+const client = new Client(configPosgrestRailway)
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 let attempts = 0
 

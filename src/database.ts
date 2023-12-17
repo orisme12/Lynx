@@ -1,14 +1,12 @@
 import { Client, ClientOptions } from 'packages/postgres@v0.17.0/mod.ts'
-import { load } from 'deps/lib.ts'
-
-const env = await load()
+import 'packages/dotenv@v3.2.2/load.ts'
 
 const postgres: ClientOptions = {
-  user: env['DB_USER'],
-  database: env['DB_NAME'],
-  hostname: env['DB_HOSTNAME'],
-  port: env['DB_PORT'],
-  password: env['DB_PASSWORD'],
+  user: Deno.env.get('DB_USER'),
+  database: Deno.env.get('DB_NAME'),
+  hostname: Deno.env.get('DB_HOSTNAME'),
+  port: Deno.env.get('DB_PORT'),
+  password: Deno.env.get('DB_PASSWORD'),
 }
 
 const client = new Client(postgres)

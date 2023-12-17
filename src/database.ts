@@ -1,28 +1,24 @@
-import { ClientOptions, Pool } from 'packages/postgres@v0.17.0/mod.ts'
+import { Client, ClientOptions } from 'packages/postgres@v0.17.0/mod.ts'
 import { load } from 'deps/lib.ts'
 
 const env = await load()
 
-const MODE = env['MODE']
-const postgresSQLDev: ClientOptions = {
+const postgres: ClientOptions = {
   user: env['DB_USER'],
   database: env['DB_NAME'],
   hostname: env['DB_HOSTNAME'],
   port: env['DB_PORT'],
   password: env['DB_PASSWORD'],
 }
-const posgresSQLProd = env['DB_DEPLOY']
-const connectToPostgreSQL = MODE === 'dev' ? postgresSQLDev : posgresSQLProd
 
-const client = new Pool(connectToPostgreSQL, 3, true)
+const client = new Client(postgres)
 const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms))
 let attempts = 0
-
-const isConectedToPostgres = await client.connect()
 
 while (attempts < 5) {
   try {
     console.log('🐳 Connecting to postgres...')
+    await client.connect()
     console.log('🚀 Connection succesfuly to postgres')
     break
   } catch (error) {
@@ -31,9 +27,7 @@ while (attempts < 5) {
     console.log('🐳 Intentando nuevamente, conectando...')
     await sleep(5000)
     attempts++
-  } finally {
-    isConectedToPostgres.release()
   }
 }
 
-export default isConectedToPostgres
+export default client

@@ -1,14 +1,8 @@
 from fastapi import FastAPI
+from starlette.middleware.cors import CORSMiddleware
+from src.routers import api
+from src.lib import API_VERSION, PROJECT_NAME
 
-
-app = FastAPI()
-
-
-@app.get('/')
-async def router_welcome():
-    return {
-        'title': 'Welcome API commerce',
-        'description': 'This API is open sources',
-        'version': ['0.0.1'],
-        'teams': ['Carlos', 'Santiago', 'Gerzon', 'Sebastian'],
-    }
+app = FastAPI(title=PROJECT_NAME, openapi_url=f'{API_VERSION}/openapi.json')
+app.add_middleware(CORSMiddleware)
+app.include_router(api.api_router, prefix=API_VERSION)

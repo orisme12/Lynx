@@ -3,18 +3,25 @@
 If you already cloned the repository and you know that you need to deep dive in the code, here are some guidelines to set up your environment.
 
 
-### Virtual enviroment with `pipenv`
-
-#### Install pipenv
+### Virtual enviroment with `venv`
 
 ```sh
-pip install pipenv
+python -m venv env
 ```
 
-#### Initialize virutal enviroment
+#### Activate the environment
+
+
+##### Unix
 
 ```sh
-pipenv shell
+source ./env/bin/activate
+```
+
+##### Powershell
+
+```ps1
+.\env\Scripts\activate
 ```
 
 #### Building dependecies
@@ -22,7 +29,7 @@ pipenv shell
 It will install all the dependencies and your local FastAPI in your local environment.
 
 ```sh
-pipenv run pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 #### Run server with `uvicorn`
@@ -30,7 +37,7 @@ pipenv run pip install -r requirements.txt
 Alredy for development...
 
 ```shell
-pipenv run dev # uvicorn src.main:app --reload
+uvicorn src.main:app --reload
 ```
 
 ### Thank for read

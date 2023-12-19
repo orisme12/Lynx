@@ -7,12 +7,6 @@ We use `ruff` tools for python build with rust, super fast...
 You can install ruff local enviroment with
 
 ```sh
-pipenv install ruff --dev
-```
-
-we recommend you install global with `pip`
-
-```sh
 pip install ruff
 ```
 
@@ -25,7 +19,7 @@ Ruff this configuration for use with `pipenv` in the file `ruff.toml` you can se
 #### Run linter
 
 ```sh
-pipenv run lint
+ruff check .
 ```
 
 ## Formatter
@@ -33,7 +27,7 @@ pipenv run lint
 #### Run formatter
 
 ```sh
-pipenv run fmt
+ruff fmt .
 ```
 
 ## Final

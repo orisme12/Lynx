@@ -8,5 +8,5 @@ We use `pytest` is popular, fast etc...
 ### Install pytest
 
 ```sh
-pipenv install --dev # Install dev dependecies project
+pip install pytest # Install dev dependecies project
 ```

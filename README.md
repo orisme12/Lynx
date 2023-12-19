@@ -1,4 +1,4 @@
-# Lynx
+# Commerce API
 
 Lynx is a mixed open sources commerce, where you will find a variety of
 products, Buy now! 🌼
@@ -19,20 +19,6 @@ _If use you terminal Docker CLI:_
 
 ```sh
 docker compose up
-```
-
-### Run server
-
-```sh
-deno task dev
-```
-
-## Pg Admin
-
-Pg admmin server on port: 80
-
-```sh
-http://localhost:80
 ```
 
 ## License

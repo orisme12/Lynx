@@ -37,7 +37,7 @@ pip install -r requirements.txt
 Alredy for development...
 
 ```shell
-uvicorn src.main:app --reload
+uvicorn app.main:app --reload
 ```
 
 ### Thank for read

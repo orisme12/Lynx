@@ -1,16 +1,9 @@
 # File principle
 
 from fastapi import FastAPI
+from app.routers.api import router_api
+from app.env import API_V1
 
 app = FastAPI()
 
-
-# Decorador
-
-@app.get('/')
-async def server():
-    return "Hola"
-
-@app.get('/carlos')
-async def carlos_get():
-    return "Hola soy carlos y estoy con sebastian"
+app.include_router(router_api, prefix=API_V1)

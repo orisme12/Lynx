@@ -4,6 +4,7 @@ from jose import jwt, ExpiredSignatureError, JWTError
 from fastapi import Depends, HTTPException, status
 from datetime import datetime, timedelta, timezone
 from fastapi.security import OAuth2PasswordBearer
+from app.db.conn import SessionLocal
 
 JWT_SECRET = os.environ.get("JWT_SECRET") or ""
 SECRET_KEY = os.environ.get("SECRET_KEY")
@@ -50,3 +51,11 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
         raise credentials_exception
     except JWTError:
         raise credentials_exception
+
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

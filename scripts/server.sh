@@ -1,8 +1,5 @@
 #! /bin/bash
 
-
-#!/bin/bash
-
 folder_app="app"
 
 if [ -d "$folder_app" ]; then

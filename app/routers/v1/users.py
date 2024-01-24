@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException, status
+from fastapi import APIRouter, HTTPException, status, Depends
 from app.schemas.user import UserCreate
-from app.deps import get_password_hash, verify_password, create_access_token
+from app.deps import get_password_hash, verify_password, create_access_token, get_db
 from app.db.connection import users_collection
 from app.schemas.user import User
+from sqlalchemy.orm import Session
 
 router = APIRouter()
 
@@ -10,6 +11,7 @@ router = APIRouter()
 @router.post("/login")
 async def login(user_credentials: User):
     hash_user = user_credentials.model_dump()
+
     if hash_user["email"] == "" or hash_user["password"] == "":
         return {"message": "Dear user, campus empty."}
     storage_user = users_collection.find_one({"email": hash_user["email"]})

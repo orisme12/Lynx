@@ -1,6 +1,6 @@
 -- Create database local
 
-CREATE DATABASE lynx;
+CREATE DATABASE commerce;
 
 CREATE TABLE users(
     id SERIAL PRIMARY KEY,
@@ -10,3 +10,7 @@ CREATE TABLE users(
 );
 
 INSERT INTO users (name, email, password) VALUES ('example', 'example@example.com', 'example123');
+
+CREATE TABLE products();
+
+CREATE TABLE categories();

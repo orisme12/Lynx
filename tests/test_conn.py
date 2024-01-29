@@ -1,14 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
 from sqlalchemy import text
-import os
 import pytest
 
-
-load_dotenv()
-
-SQLALCHEMY_DATABASE_URL = os.environ.get("SQLALCHEMY_DATABASE_URL")
+SQLALCHEMY_DATABASE_URL = "sqlite:///test.sqlite"
 
 
 engine = create_engine(
@@ -20,7 +15,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 Base = declarative_base()
 
 
-@pytest.mark.skip(reason="Connection succesfuly")
 def test_connection_sqlite():
     with engine.connect() as conn:
         query = conn.execute(text("SELECT 'Hola, Mundo'"))

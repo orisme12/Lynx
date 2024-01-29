@@ -7,6 +7,8 @@ CREATE TABLE users(
     name VARCHAR(50),
     email VARCHAR(50),
     password VARCHAR(50)
+    phone VARCHAR(10),
+    role VARCHAR(10)
 );
 
 INSERT INTO users (name, email, password) VALUES ('example', 'example@example.com', 'example123');

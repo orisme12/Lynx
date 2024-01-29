@@ -1,4 +1,4 @@
-from app.deps import verify_password, get_password_hash
+from app.bcrypt import get_password_hash, verify_password
 
 
 def test_verify_password_is_valid():

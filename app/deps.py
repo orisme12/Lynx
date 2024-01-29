@@ -1,29 +1,20 @@
-import bcrypt
 import os
 from jose import jwt, ExpiredSignatureError, JWTError
 from fastapi import Depends, HTTPException, status
 from datetime import datetime, timedelta, timezone
 from fastapi.security import OAuth2PasswordBearer
 from app.db.conn import SessionLocal
+from dotenv import load_dotenv
 
-JWT_SECRET = os.environ.get("JWT_SECRET") or ""
+load_dotenv()
+
+JWT_SECRET = os.environ.get("JWT_SECRET")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ACCESS_TOKEN_EXPIRE_MINUTES = os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES")
 ALGORITHM = os.environ.get("ALGORITHM")
 
-salt = bcrypt.gensalt()
+
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl=JWT_SECRET)
-
-
-def verify_password(plain_password: str, hashed_password: str):
-    enconde_password = plain_password.encode()
-    return bcrypt.checkpw(enconde_password, hashed_password)
-
-
-def get_password_hash(password: str):
-    enconde_password = password.encode()
-    passowrd_hashed = bcrypt.hashpw(enconde_password, salt)
-    return passowrd_hashed
 
 
 def create_access_token(data: dict, expires_delta: timedelta = None):

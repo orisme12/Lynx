@@ -3,7 +3,7 @@
 Lynx is a mixed open sources commerce, where you will find a variety of
 products, Buy now! 🌼
 
-## Development
+## Mode development
 
 More information in the folder: *doc*
 

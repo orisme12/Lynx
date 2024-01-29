@@ -5,8 +5,11 @@ from fastapi import Depends, HTTPException, status
 from datetime import datetime, timedelta, timezone
 from fastapi.security import OAuth2PasswordBearer
 from app.db.conn import SessionLocal
+from dotenv import load_dotenv
 
-JWT_SECRET = os.environ.get("JWT_SECRET") or ""
+load_dotenv()
+
+JWT_SECRET = os.environ.get("JWT_SECRET")
 SECRET_KEY = os.environ.get("SECRET_KEY")
 ACCESS_TOKEN_EXPIRE_MINUTES = os.environ.get("ACCESS_TOKEN_EXPIRE_MINUTES")
 ALGORITHM = os.environ.get("ALGORITHM")

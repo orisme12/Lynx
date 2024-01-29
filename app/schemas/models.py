@@ -2,6 +2,24 @@ from sqlalchemy import Column, String, Integer, Boolean, ForeignKey
 from sqlalchemy.orm import relationship
 from app.db.conn import Base
 
+class User(Base):
+    __tablename__ = "users"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    password = Column(String)
+    email = Column(String, unique=True, index=True)
+    phone = Column(String)
+    role = Column(String, default="user")
+
+
+class Category(Base):
+    __tablename__ = "categories"
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+    products = relationship("Product", back_populates="category")
+
 
 class Product(Base):
     __tablename__ = "products"
@@ -18,4 +36,4 @@ class Product(Base):
     brand = Column(String)
     category_id = Column(Integer, ForeignKey("categories.id"))
 
-    category = relationship("Category")
+    category = relationship("Category", back_populates="products")

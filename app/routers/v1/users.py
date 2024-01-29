@@ -1,53 +1,66 @@
 from fastapi import APIRouter, HTTPException, status, Depends
-from app.schemas.user import UserCreate
+from app.schemas import types
+from app.schemas import models
 from app.deps import get_password_hash, verify_password, create_access_token, get_db
-from app.db.connection import users_collection
-from app.schemas.user import User
 from sqlalchemy.orm import Session
 
 router = APIRouter()
 
 
 @router.post("/login")
-async def login(user_credentials: User):
-    hash_user = user_credentials.model_dump()
+async def login(user_credentials: types.UserLogin, db: Session = Depends(get_db)):
+    user = user_credentials.model_dump()
 
-    if hash_user["email"] == "" or hash_user["password"] == "":
-        return {"message": "Dear user, campus empty."}
-    storage_user = users_collection.find_one({"email": hash_user["email"]})
+    if user["email"] == "" or user["password"] == "":
+        return {
+            "message": "Dear user, credentials empty.",
+            status: status.HTTP_204_NO_CONTENT,
+        }
 
-    if storage_user is not None:
-        verify_password_user = verify_password(
-            hash_user["password"], storage_user.get("password")
-        )
-        if storage_user and verify_password_user:
-            access_token = create_access_token(data={"sub": hash_user["email"]})
-            return {
-                "access_token": access_token,
-                "token_type": "bearer",
-                "message": "Sing In... Welcome user",
-            }
+    db_user = db.query(models.User).filter(models.User.email == user["email"]).first()
+
+    if db_user and verify_password(user["password"], db_user.password):
+        access_token = create_access_token(data={"sub": user["email"]})
+        return {
+            "access_token": access_token,
+            "token_type": "bearer",
+            "message": "User logger successfuly 🐶",
+            "db": [],
+            "status": status.HTTP_200_OK,
+        }
+
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED, detail="Credentials invalid"
     )
 
 
 @router.post("/register")
-async def register(user_credentials: UserCreate):
-    storage_user = users_collection.find_one({"email": user_credentials.email})
-    if storage_user:
-        return {"message": "Dear user, this email is already in use."}
+async def register(user_credentials: types.UserCreate, db: Session = Depends(get_db)):
+    user = user_credentials.model_dump()
+    user["password"] = get_password_hash(user.pop("password"))
 
-    if user_credentials.email == "" or user_credentials.password == "":
-        return {"message": "Dear user, campus empty."}
+    user_exists = (
+        db.query(models.User).filter(models.User.email == user["email"]).first()
+    )
 
-    hash_user = user_credentials.model_dump()
-    hash_user["password"] = get_password_hash(hash_user.pop("password"))
-    user_id = users_collection.insert_one(hash_user).inserted_id
+    if user_exists:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
+        )
+
+    db_user = models.User(
+        name=user["name"],
+        email=user["email"],
+        password=user["password"],
+        phone=user["phone"],
+    )
+
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
 
     return {
-        "username": user_credentials.name,
-        "email": user_credentials.email,
-        "_id": str(user_id),
-        "message": "User successfuly register",
+        "message": "User create successfuly 🐶",
+        "db": [],
+        "status": status.HTTP_200_OK,
     }

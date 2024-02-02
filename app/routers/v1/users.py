@@ -54,6 +54,7 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
         email=user["email"],
         password=user["password"],
         phone=user["phone"],
+        role=user["role"],
     )
 
     db.add(db_user)

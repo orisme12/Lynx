@@ -5,9 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.db.conn import engine
 from app.schemas import models
 
-models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
+
+models.Base.metadata.create_all(bind=engine)
 
 origins = [
     "http://localhost:3000",

@@ -16,3 +16,5 @@ INSERT INTO users (name, email, password) VALUES ('example', 'example@example.co
 CREATE TABLE products();
 
 CREATE TABLE categories();
+
+SELECT * FROM users WHERE email LIKE 'al EMAIL DEL USUARIO'

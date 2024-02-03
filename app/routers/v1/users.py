@@ -1,3 +1,4 @@
+import re
 from fastapi import APIRouter, HTTPException, status, Depends
 from app.schemas import types
 from app.schemas import models
@@ -52,6 +53,14 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
     if user["role"] not in ['admin', 'user']:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="the selected role is incorrect"
+        )
+
+    patron = re.compile(r"[^@]+@[^@]+\.[^@]+")
+
+    if not patron.match(user["email"]):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="this email is not valid",
         )
 
     db_user = models.User(

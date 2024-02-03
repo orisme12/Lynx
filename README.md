@@ -5,7 +5,7 @@ products, Buy now! 🌼
 
 ## Mode development
 
-More information in the folder: *doc*
+More information in the folder: *docs*
 
 ## License
 

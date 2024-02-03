@@ -14,7 +14,8 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-@pytest.mark.skip(reason='Select succesfully')
+
+@pytest.mark.skip(reason="Select succesfully")
 def test_connection_sqlite():
     with engine.connect() as conn:
         query = conn.execute(text("SELECT 'Hola, Mundo'"))

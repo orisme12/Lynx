@@ -1,6 +1,6 @@
 Write-Host "Hola Mundo"
 
-$folder_app = "app" 
+$folder_app = "app"
 
 if (Test-Path $folder_app -PathType Container) {
     <# Action to perform if the condition is true #>
@@ -9,4 +9,3 @@ if (Test-Path $folder_app -PathType Container) {
 } else {
     Write-Host "Denied folder no exits...❌"
 }
-

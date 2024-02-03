@@ -55,9 +55,9 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
             status_code=status.HTTP_400_BAD_REQUEST, detail="the selected role is incorrect"
         )
 
-    patron = re.compile(r"[^@]+@[^@]+\.[^@]+")
+    pattern = re.compile(r"[^@]+@[^@]+\.[^@]+")
 
-    if not patron.match(user["email"]):
+    if not pattern.match(user["email"]):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="this email is not valid",

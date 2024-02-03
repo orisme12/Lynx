@@ -1,4 +1,4 @@
-# Building database 
+# Building database
 
 ## We use `docker`
 

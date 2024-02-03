@@ -1,5 +1,5 @@
 {
-    "python.activeStateToolPath": "state",
-    "ruff.enable": true,
-    "ruff.lint.enable": true
+  "python.activeStateToolPath": "state",
+  "ruff.enable": true,
+  "ruff.lint.enable": true
 }

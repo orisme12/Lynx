@@ -49,10 +49,11 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
         )
-    
-    if user["role"] not in ['admin', 'user']:
+
+    if user["role"] not in ["admin", "user"]:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="the selected role is incorrect"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="the selected role is incorrect",
         )
 
     pattern = re.compile(r"[^@]+@[^@]+\.[^@]+")

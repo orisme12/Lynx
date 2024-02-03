@@ -71,6 +71,12 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
             detail="the name is not valid",
         )
 
+    if not user["phone"].isdigit():
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="the number is not valid",
+        )
+
     db_user = models.User(
         name=user["name"],
         email=user["email"],

@@ -39,6 +39,13 @@ async def login(user_credentials: types.UserLogin, db: Session = Depends(get_db)
 @router.post("/register")
 async def register(user_credentials: types.UserCreate, db: Session = Depends(get_db)):
     user = user_credentials.model_dump()
+
+    if len(user["password"]) <= 7:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="The password must be more than 7 characters",
+        )
+
     user["password"] = get_password_hash(user.pop("password")).decode()
 
     print(user["password"])

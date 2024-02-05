@@ -62,9 +62,9 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
             },
         )
 
-    patternCaracter = re.compile(r"[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]")
+    patternCharacter = re.compile(r"[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]")
 
-    if not patternCaracter.search(user["password"]):
+    if not patternCharacter.search(user["password"]):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail={

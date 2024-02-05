@@ -43,7 +43,11 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
     if len(user["password"]) <= 7:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="The password must be more than 7 characters",
+            detail={
+                "message": "The password must be more than 7 characters",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
         )
 
     user["password"] = get_password_hash(user.pop("password")).decode()
@@ -55,13 +59,22 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
 
     if user_exists:
         raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST, detail="Email already registered"
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={
+                "message": "Email already registered",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
         )
 
     if user["role"] not in ["admin", "user"]:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="the selected role is incorrect",
+            detail={
+                "message": "the selected role is incorrect",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
         )
 
     pattern = re.compile(r"[^@]+@[^@]+\.[^@]+")
@@ -69,19 +82,31 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
     if not pattern.match(user["email"]):
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="this email is not valid",
+            detail={
+                "message": "this email is not valid",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
         )
 
     if not user["name"] or len(user["name"]) == 0:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="the name is not valid",
+            detail={
+                "message": "the name is not valid",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
         )
 
     if not user["phone"].isdigit():
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
-            detail="the number is not valid",
+            detail={
+                "message": "the number is not valid",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
         )
 
     db_user = models.User(

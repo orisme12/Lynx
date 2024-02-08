@@ -50,6 +50,30 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
             },
         )
 
+    patternMayus = re.compile(r"[A-Z]")
+
+    if not patternMayus.search(user["password"]):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={
+                "message": "Password must have at least one uppercase letter",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
+        )
+
+    patternCharacter = re.compile(r"[!@#$%^&*()_+{}\[\]:;<>,.?~\\-]")
+
+    if not patternCharacter.search(user["password"]):
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={
+                "message": "Password must have at least one character special",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
+        )
+
     user["password"] = get_password_hash(user.pop("password")).decode()
 
     print(user["password"])

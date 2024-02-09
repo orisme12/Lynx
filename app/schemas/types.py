@@ -12,3 +12,10 @@ class UserCreate(BaseModel):
 class UserLogin(BaseModel):
     email: str
     password: str
+
+class User(BaseModel):
+    name: str
+    email: str
+    password: str
+    phone: str
+    role: str = "user"

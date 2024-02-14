@@ -19,6 +19,7 @@ class Category(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
+    image = Column(String)
     products = relationship("Product", back_populates="category")
 
 

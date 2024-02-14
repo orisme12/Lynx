@@ -12,8 +12,8 @@ from app.schemas import models
 app = FastAPI()
 
 load_dotenv()
-models.Base.metadata.create_all(bind=engine)
 
+models.Base.metadata.create_all(bind=engine)
 config = cloudinary.config(
     secure=True,
     cloud_name="du2jpakme",
@@ -34,10 +34,3 @@ app.add_middleware(
 )
 
 app.include_router(router_api, prefix=API_V1)
-
-print(
-    "****1. Set up and configure the SDK:****\nCredentials: ",
-    config.cloud_name,
-    config.api_key,
-    "\n",
-)

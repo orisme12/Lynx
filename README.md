@@ -15,6 +15,6 @@ features and solve problems, we will be grateful for your help. ❤
 ## Teams
 
 - Carlos Alberto Bonet Alvarez
-- Johan Sebastian
+- Sebastian García
 - Gerzon Arlet Rangel
 - Santiago Rico

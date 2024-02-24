@@ -50,3 +50,15 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+def on_validate_admin(role: str):
+    if not role == "admin":
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={
+                "message": "You do not have permission, you must be admin",
+                "db": [],
+                "status": status.HTTP_400_BAD_REQUEST,
+            },
+        )

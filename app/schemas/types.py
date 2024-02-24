@@ -25,3 +25,16 @@ class User(BaseModel):
 class CategoryCreate(BaseModel):
     name: str
     image: str
+
+
+class ProductCreate(BaseModel):
+    name: str
+    image: str
+    price: str
+    is_offer: bool
+    offer_price: int
+    punctuation: int
+    quantity: int
+    description: str
+    brand: str
+    category_id: int

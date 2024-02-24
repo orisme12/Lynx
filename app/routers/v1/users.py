@@ -75,8 +75,7 @@ async def register(user_credentials: types.UserCreate, db: Session = Depends(get
         )
 
     user["password"] = get_password_hash(user.pop("password")).decode()
-
-    print(user["password"])
+    
     user_exists = (
         db.query(models.User).filter(models.User.email == user["email"]).first()
     )
